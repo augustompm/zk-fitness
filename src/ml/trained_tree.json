@@ -1,0 +1,234 @@
+{
+  "n_features": 8,
+  "n_classes": 3,
+  "max_depth": 5,
+  "n_leaves": 11,
+  "feature_names": [
+    "chest_accel_mean",
+    "chest_accel_std",
+    "ankle_accel_mean",
+    "ankle_accel_std",
+    "ankle_gyro_mean",
+    "wrist_accel_mean",
+    "wrist_accel_std",
+    "wrist_gyro_mean"
+  ],
+  "class_names": [
+    "rest",
+    "moderate",
+    "vigorous"
+  ],
+  "scale_factor": 100,
+  "nodes": [
+    {
+      "node_id": 0,
+      "is_leaf": false,
+      "feature_index": 6,
+      "feature_name": "wrist_accel_std",
+      "threshold": 33,
+      "threshold_original": 0.3383941501379013,
+      "left_child": 1,
+      "right_child": 4
+    },
+    {
+      "node_id": 1,
+      "is_leaf": false,
+      "feature_index": 6,
+      "feature_name": "wrist_accel_std",
+      "threshold": 26,
+      "threshold_original": 0.26553450524806976,
+      "left_child": 2,
+      "right_child": 3
+    },
+    {
+      "node_id": 2,
+      "is_leaf": true,
+      "predicted_class": 0,
+      "class_counts": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "node_id": 3,
+      "is_leaf": true,
+      "predicted_class": 0,
+      "class_counts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "node_id": 4,
+      "is_leaf": false,
+      "feature_index": 1,
+      "feature_name": "chest_accel_std",
+      "threshold": 520,
+      "threshold_original": 5.204992771148682,
+      "left_child": 5,
+      "right_child": 20
+    },
+    {
+      "node_id": 5,
+      "is_leaf": false,
+      "feature_index": 7,
+      "feature_name": "wrist_gyro_mean",
+      "threshold": 104,
+      "threshold_original": 1.0442245602607727,
+      "left_child": 6,
+      "right_child": 13
+    },
+    {
+      "node_id": 6,
+      "is_leaf": false,
+      "feature_index": 3,
+      "feature_name": "ankle_accel_std",
+      "threshold": 87,
+      "threshold_original": 0.8790303468704224,
+      "left_child": 7,
+      "right_child": 10
+    },
+    {
+      "node_id": 7,
+      "is_leaf": false,
+      "feature_index": 5,
+      "feature_name": "wrist_accel_mean",
+      "threshold": 1005,
+      "threshold_original": 10.055279731750488,
+      "left_child": 8,
+      "right_child": 9
+    },
+    {
+      "node_id": 8,
+      "is_leaf": true,
+      "predicted_class": 2,
+      "class_counts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "node_id": 9,
+      "is_leaf": true,
+      "predicted_class": 1,
+      "class_counts": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "node_id": 10,
+      "is_leaf": false,
+      "feature_index": 2,
+      "feature_name": "ankle_accel_mean",
+      "threshold": 1268,
+      "threshold_original": 12.686774730682373,
+      "left_child": 11,
+      "right_child": 12
+    },
+    {
+      "node_id": 11,
+      "is_leaf": true,
+      "predicted_class": 2,
+      "class_counts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "node_id": 12,
+      "is_leaf": true,
+      "predicted_class": 1,
+      "class_counts": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "node_id": 13,
+      "is_leaf": false,
+      "feature_index": 4,
+      "feature_name": "ankle_gyro_mean",
+      "threshold": 120,
+      "threshold_original": 1.2079660296440125,
+      "left_child": 14,
+      "right_child": 17
+    },
+    {
+      "node_id": 14,
+      "is_leaf": false,
+      "feature_index": 4,
+      "feature_name": "ankle_gyro_mean",
+      "threshold": 82,
+      "threshold_original": 0.8256531655788422,
+      "left_child": 15,
+      "right_child": 16
+    },
+    {
+      "node_id": 15,
+      "is_leaf": true,
+      "predicted_class": 2,
+      "class_counts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "node_id": 16,
+      "is_leaf": true,
+      "predicted_class": 1,
+      "class_counts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "node_id": 17,
+      "is_leaf": false,
+      "feature_index": 4,
+      "feature_name": "ankle_gyro_mean",
+      "threshold": 126,
+      "threshold_original": 1.2650238275527954,
+      "left_child": 18,
+      "right_child": 19
+    },
+    {
+      "node_id": 18,
+      "is_leaf": true,
+      "predicted_class": 2,
+      "class_counts": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "node_id": 19,
+      "is_leaf": true,
+      "predicted_class": 2,
+      "class_counts": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "node_id": 20,
+      "is_leaf": true,
+      "predicted_class": 2,
+      "class_counts": [
+        0,
+        0,
+        1
+      ]
+    }
+  ]
+}

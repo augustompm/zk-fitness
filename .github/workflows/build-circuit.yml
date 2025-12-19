@@ -1,0 +1,82 @@
+name: Build and Attest Circuit
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install snarkjs
+        run: npm install -g snarkjs
+
+      - name: Install Circom
+        run: |
+          curl -Ls https://github.com/iden3/circom/releases/download/v2.1.6/circom-linux-amd64 -o circom
+          chmod +x circom
+          sudo mv circom /usr/local/bin/
+
+      - name: Download Powers of Tau
+        run: |
+          cd circuits
+          mkdir -p build
+          curl -L https://storage.googleapis.com/zkevm/ptau/powersOfTau28_hez_final_14.ptau -o build/pot14_final.ptau
+
+      - name: Compile circuit
+        run: |
+          cd circuits
+          circom zkml_fitness_classifier.circom --r1cs --wasm --sym -o build
+
+      - name: Generate proving key
+        run: |
+          cd circuits/build
+          npx snarkjs groth16 setup zkml_fitness_classifier.r1cs pot14_final.ptau zkml_fitness_classifier_0000.zkey
+          npx snarkjs zkey contribute zkml_fitness_classifier_0000.zkey zkml_fitness_classifier.zkey --name="GitHub Actions" -e="$(date +%s)"
+          npx snarkjs zkey export verificationkey zkml_fitness_classifier.zkey verification_key.json
+
+      - name: Test with example input
+        run: |
+          cd circuits/build
+          node zkml_fitness_classifier_js/generate_witness.js zkml_fitness_classifier_js/zkml_fitness_classifier.wasm ../input_goal_achieved.json witness.wtns
+          npx snarkjs groth16 prove zkml_fitness_classifier.zkey witness.wtns proof.json public.json
+          npx snarkjs groth16 verify verification_key.json public.json proof.json
+
+      - name: Attest verification key
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: circuits/build/verification_key.json
+
+      - name: Attest zkey
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: circuits/build/zkml_fitness_classifier.zkey
+
+      - name: Attest r1cs
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: circuits/build/zkml_fitness_classifier.r1cs
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: circuit-build
+          path: |
+            circuits/build/verification_key.json
+            circuits/build/zkml_fitness_classifier.zkey
+            circuits/build/zkml_fitness_classifier.r1cs
+            circuits/build/zkml_fitness_classifier_js/
